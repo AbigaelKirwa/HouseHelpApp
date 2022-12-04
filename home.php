@@ -27,6 +27,6 @@ if(!empty($_SESSION["ID"])){
 </head>
 <body>
     <h1>Welcome <?php echo $row["username"] ?></h1>
-    <a href="logout.php">Log out</a>
+    <a href="signout.php">Log out</a>
 </body>
 </html>

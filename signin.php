@@ -1,5 +1,9 @@
 <?php
    include("config.php");
+
+   if(!empty($_SESSION["ID"])){
+    header("Location: home.php");
+    }
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 

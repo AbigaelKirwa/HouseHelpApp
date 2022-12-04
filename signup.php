@@ -5,6 +5,10 @@ if($_SERVER["REQUEST_METHOD"] == 'POST'){
 
     include_once ("config.php");
 
+    if(!empty($_SESSION["ID"])){
+        header("Location: home.php");
+    }
+
 //create database query
 $sql_create= "CREATE DATABASE domesticworkers";
 

@@ -40,7 +40,7 @@ if(mysqli_num_rows($username_duplicate) > 0){
 
             $sql_insert = "INSERT INTO users(`username`, `password`, `email`,`role`) VALUES ('$username','$password', '$email','$role')"; 
             mysqli_query($conn, $sql_insert);
-            header("Location: login.php");
+            header("Location: signin.php");
             echo '<script>alert("Succeful registration")</script>"';
     
         }else{
@@ -88,7 +88,7 @@ if(mysqli_num_rows($username_duplicate) > 0){
         <div class="text-center text-black">
             <h1 class="font-bold text-6xl leading-relaxed text-sky-700">Welcome</h1>
             <p class="text-2xl leading-relaxed">Already have an account?<br>log in with your personal info</p>
-            <button class="rounded-full border-2 border-black bg-transparent px-28 py-2 mt-10 text-2xl font-bold"><a href="login.php">LOG IN</a></button>
+            <button class="rounded-full border-2 border-black bg-transparent px-28 py-2 mt-10 text-2xl font-bold"><a href="signin.php">LOG IN</a></button>
         </div>
     </section>
 

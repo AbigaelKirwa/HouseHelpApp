@@ -28,7 +28,7 @@
                 <p class="mt-5 text-3xl leading-relaxed">This is a webiste that helps conect clients<br>with potential domestic workers</p>
             </div>
             <div class="flex flex-row mt-10">
-                <button class="bg-black hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full"><a href="signup.html">Get Started</a></button>
+                <button class="bg-black hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-full"><a href="signup.php">Get Started</a></button>
                 <p class="font-bold mt-2 ml-5 text-xl"><a href="#">Learn more</a></p>
             </div>
         </section>

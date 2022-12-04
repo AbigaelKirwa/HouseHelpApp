@@ -30,7 +30,7 @@
         <div class="text-center text-black">
             <h1 class="font-bold text-5xl leading-relaxed text-sky-700">Welcome Back</h1>
             <p class="text-2xl leading-relaxed mt-3">Don't have an account?<br>sign up with your personal info</p>
-            <button class="rounded-full border-2 border-black bg-transparent px-28 py-2 mt-10 text-2xl font-bold"><a href="signup.html">SIGN UP</a></button>
+            <button class="rounded-full border-2 border-black bg-transparent px-28 py-2 mt-10 text-2xl font-bold"><a href="signup.php">SIGN UP</a></button>
         </div>
     </section>
 

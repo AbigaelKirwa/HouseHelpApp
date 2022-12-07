@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == 'POST'){
     }
 
 //create database query
-$sql_create= "CREATE DATABASE domesticworkers";
+$sql_create= "CREATE DATABASE heroku_0dbbe2971f53a86";
 
 //create table
 $sql_table = "CREATE TABLE `users` (

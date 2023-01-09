@@ -30,7 +30,7 @@
 <section class="pt-32 pl-12 w-96">
     <div class="text-center text-black">
         <h1 class="font-bold text-5xl leading-relaxed text-sky-700">Schedule an<br>Appointment</h1>
-        <p class="text-2xl leading-relaxed mt-3">Book a househelps anytime anywhere</p>
+        <p class="text-2xl leading-relaxed mt-3">Book a househelp anytime anywhere</p>
     </div>
 </section>
 </body>

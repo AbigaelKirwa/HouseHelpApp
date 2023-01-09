@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
-    <title>Home</title>
+    <title>HouseHelps</title>
 </head>
 <body>
     <div class="px-10 py-5">

@@ -29,8 +29,10 @@ if(!empty($_SESSION["ID"])){
     <div class="px-10 py-5">
 
     <?php
-        $ID = $_GET['ID'];
-         $result= mysqli_query($conn, "SELECT * FROM services where ID = ID");
+
+        $serviceID = (int)$_GET['ID'];
+
+         $result= mysqli_query($conn, "SELECT * FROM services where ID = 1");
          $row =mysqli_fetch_assoc($result);
          while ($row = mysqli_fetch_array($result)){
             ?>

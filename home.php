@@ -34,22 +34,25 @@ if(!empty($_SESSION["ID"])){
         <a href="#"><img src="images/menu.png" width="25px" class="float-right"></a>
     </div>
     <a href="#"><img src="images/arrow1.png" width="30px" class="float-right mr-10 mt-52"></a>
+
     <div class="flex flex-row pl-32 py-10 space-x-20 w-auto mt-10">
-        <div class="rounded-3xl text-center px-10 py-8 h-1/2" id="services" style="background-color: #8CBCD7;">
-            <img src="images/worker4-PhotoRoom.png" class="w-32 ml-6">
-            <h3 class="font-bold text-xl mt-8">General Cleaning</h3>
-            <p class="font-xl mt-5 leading-relaxed">This involves dusting, sweeping<br>and mopping of the house. </p>
-        </div>
-        <div class="rounded-3xl text-center px-10 py-8 h-1/2" id="services"  style="background-color: #E9D1BB;">
-            <img src="images/worker6.png" class="w-24 ml-14">
-            <h3 class="font-bold text-xl mt-10">Baby Sitting</h3>
-            <p class="font-xl mt-5 leading-relaxed">This involves taking care of little</br>children for a specific period</p>
-        </div>
-        <div class="rounded-3xl text-center px-10 py-8 h-1/2" id="services"  style="background-color: #8CBCD7;">
-            <img src="images/worker3-PhotoRoom.png" class="w-24 ml-10">
-            <h3 class="font-bold text-xl mt-10">Laundry</h3>
-            <p class="font-xl mt-5 leading-relaxed">This involves washing of clothes</br>and bed linen. </p>
-        </div>
+        <?php 
+
+        $query = "SELECT * FROM services";
+        $result= mysqli_query($conn, $query);
+        while ($row = mysqli_fetch_array($result)){
+        ?>
+            <div class="rounded-3xl text-center px-10 py-8 h-1/2" id="services" style="background-color: #8CBCD7;">
+                <?php echo '<img src="data:image;base64,'.base64_encode($row['img_icon']).'" class="w-32 ml-6">'; ?>
+                <p hidden><?php echo $row['ID'] ?></p>
+                <h3 class="font-bold text-xl mt-8"><?php echo $row['service'] ?></h3>
+                <p class="font-xl mt-5 leading-relaxed"><?php echo $row['description'] ?>house. </p>
+            </div>
+
+        <?php
+        }
+        ?>
+
     </div>
 </body>
 </html>

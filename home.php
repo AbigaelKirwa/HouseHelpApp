@@ -41,11 +41,12 @@ if(!empty($_SESSION["ID"])){
         $query = "SELECT * FROM services";
         $result= mysqli_query($conn, $query);
         while ($row = mysqli_fetch_array($result)){
+        $ID = $row['ID'];
         ?>
-            <div class="rounded-3xl text-center px-10 py-8 h-1/2" id="services" style="background-color: #8CBCD7;">
+           
+            <div onclick="myFunction(<?php echo $ID ?>)" id="services" value="<?php echo $ID ?>" class="rounded-3xl text-center px-10 py-8 h-1/2" id="services" style="background-color: #8CBCD7;">
                 <?php echo '<img src="data:image;base64,'.base64_encode($row['img_icon']).'" class="w-32 ml-6">'; ?>
-                <p hidden><?php echo $row['ID'] ?></p>
-                <h3 class="font-bold text-xl mt-8"><?php echo $row['service'] ?></h3>
+                <h3 class="font-bold text-xl mt-8"><?php echo $row['ID'] ?></h3>
                 <p class="font-xl mt-5 leading-relaxed"><?php echo $row['description'] ?>house. </p>
             </div>
 
@@ -56,3 +57,12 @@ if(!empty($_SESSION["ID"])){
     </div>
 </body>
 </html>
+
+
+
+
+<script>
+function myFunction(ID) {
+    window.location.href="http://localhost/HouseHelpApp/househelps.php/" + ID;
+}
+</script>

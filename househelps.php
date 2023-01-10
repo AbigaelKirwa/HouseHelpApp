@@ -1,3 +1,20 @@
+<?php
+
+require 'config.php';
+
+if(!empty($_SESSION["ID"])){
+
+    $ID = $_SESSION["ID"];
+    $result= mysqli_query($conn, "SELECT * FROM users WHERE ID = $ID");
+    $row =mysqli_fetch_assoc($result);
+
+}else{
+    header("Location: signin.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +27,21 @@
 </head>
 <body>
     <div class="px-10 py-5">
-        <h1 class="font-bold text-2xl">General Cleaning - Price ksh. 5000</h1>
+
+    <?php
+        $ID = $_GET['ID'];
+         $result= mysqli_query($conn, "SELECT * FROM services where ID = ID");
+         $row =mysqli_fetch_assoc($result);
+         while ($row = mysqli_fetch_array($result)){
+            ?>
+            <h1 class="font-bold text-2xl"><?php echo ID  ?> Price Ksh.<?php echo $row['price'] ?></h1>
+
+            <?php
+         }
+    ?>
+
+
+        
     </div>
     <div class="text-center">
         <h1 class="font-bold text-4xl text-sky-600">Available Househelps</h1>

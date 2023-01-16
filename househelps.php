@@ -29,6 +29,9 @@ if(!empty($_SESSION["ID"])){
         $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
         mysqli_query($conn, $query);
 
+        $househelp_status = "UPDATE house_helps SET status = 'Engaged' WHERE id =  $house_help_id";
+        mysqli_query($conn, $househelp_status);
+
         header("Location: pay_mpesa.php");
         echo '<script>alert("Succeful registration")</script>"';
     
@@ -83,22 +86,21 @@ if(!empty($_SESSION["ID"])){
         </tr>
     </thead>
     <tbody>
-        <?php 
-         $h_result= mysqli_query($conn, "SELECT * FROM house_helps");
-        
+    <?php 
+        $h_result= mysqli_query($conn, "SELECT * FROM house_helps where status = 'Available'");
         while($row = mysqli_fetch_assoc($h_result)) {
-            echo "<tr>";
-            echo "<td >" . $row["ID"] . "</td>";
-            echo "<td><img src='data:image/jpeg;base64,".base64_encode($row["profile_pic"])."' width='50' height='50' class='rounded-circle'></td>";
-            echo "<td>" . $row["name"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "<td>" . $row["description"] . "</td>";
-            echo "<td>" . $row["phone_number"] . "</td>";
-            echo "<td><button class='btn btn-primary order-btn' data-ID='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></td>";
+            echo "<tr class='border-b border-gray-200'>";
+            echo "<td class='py-4 px-6'> " . $row["ID"] . "</td>";
+            echo "<td class='py-4 px-6'><img src='data:image/jpeg;base64,".base64_encode($row["profile_pic"])."' width='50' height='50' class='rounded-full'></td>";
+            echo "<td class='py-4 px-6'>" . $row["name"] . "</td>";
+            echo "<td class='py-4 px-6'>" . $row["email"] . "</td>";
+            echo "<td class='py-4 px-6'>" . $row["description"] . "</td>";
+            echo "<td class='py-4 px-6'>" . $row["phone_number"] . "</td>";
+            echo "<td class='py-4 px-6'><button class='btn btn-primary order-btn' data-ID='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></td>";
             echo "</tr>";
         }
-        ?>
-    </tbody>
+    ?>
+</tbody>
 </table>
 
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

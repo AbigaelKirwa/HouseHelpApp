@@ -10,6 +10,32 @@ if(!empty($_SESSION["ID"])){
 
 
 
+    if($_SERVER["REQUEST_METHOD"] == 'POST'){
+                
+
+        $house_help_id = $_POST["house_help_id"];
+        $user_id = $_POST["user_id"];
+        $service_price = $_POST["service_price"];
+        $county = $_POST["county"];
+        $location = $_POST["location"];
+        $house_number = $_POST["house_number"];
+        $date = $_POST["date"];
+        $start_time = $_POST["start_time"];
+        $end_time = $_POST["end_time"];
+
+        echo $end_time;
+
+        
+        $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
+        mysqli_query($conn, $query);
+
+        header("Location: pay_mpesa.php");
+        echo '<script>alert("Succeful registration")</script>"';
+    
+    }
+
+
+
 }else{
     header("Location: signin.php");
 }
@@ -85,19 +111,20 @@ if(!empty($_SESSION["ID"])){
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
-                <div class="form-group  ">
-                        <input type="text" id="house_help_id" name="house_help_id">
+                <form action="" id="orderForm" method="POST">
+                    <div class="form-group  hidden">
+                        <input type="text" id="house_help_id" name="house_help_id" readonly>
                     </div>
 
-                    <div class="form-group  ">
-                        <input type="text" id="user_id" name="user_id" value="<?php echo $_SESSION["ID"] ?>">
+                    <div class="form-group hidden">
+                        <input type="text" id="user_id" name="user_id" value="<?php echo $_SESSION["ID"] ?>" readonly>
                     </div>
                     
                     <div class="form-group">
                         <label for="name">Name of house help</label>
                         <input type="text" class="form-control" id="name" name="name" readonly>
                     </div>
+
                     <div class="form-group">
                         <label for="services">Services</label>
                         <select class="form-control" id="services" name="service_price">
@@ -105,7 +132,7 @@ if(!empty($_SESSION["ID"])){
                             $services_sql = "SELECT service, price FROM services";
                             $services_result = mysqli_query($conn, $services_sql);
                             while($services_row = mysqli_fetch_assoc($services_result)) {
-                                echo "<option value='" . $services_row["service"] ."->".$services_row["price"]." = " .$services_row["price"]. "'>" . $services_row["service"] ."->".$services_row["price"]. "</option>";
+                                echo "<option value='" . $services_row["service"] . " = " .$services_row["price"]. "'>" . $services_row["service"] ."->".$services_row["price"]. "</option>";
                             }
                             ?>
                         </select>
@@ -147,34 +174,6 @@ if(!empty($_SESSION["ID"])){
         
                 </form>
 
-
-                <?php
-
-
-if($_SERVER["REQUEST_METHOD"] == 'POST'){
-    echo '<script>alert("Welcome to Geeks for Geeks")</script>';
-                
-
-        $house_help_id = $_POST["house_help_id"];
-        $user_id = $_POST["user_id"];
-        $service_price = $_POST["service_price"];
-        $county = $_POST["county"];
-        $location = $_POST["location"];
-        $house_number = $_POST["house_number"];
-        $date = $_POST["date"];
-        $start_time = $_POST["start_time"];
-        $end_time = $_POST["end_time"];
-
-        echo $end_time;
-
-        
-        $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
-        mysqli_query($conn, $query);
-    
-    }
-
-
-                ?>
 
     </div>
 

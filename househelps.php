@@ -86,12 +86,12 @@ if(!empty($_SESSION["ID"])){
             </div>
             <div class="modal-body">
                 <form action="" method="POST">
-                <div class="form-group hidden ">
-                        <input type="text" id="house_help_id">
+                <div class="form-group  ">
+                        <input type="text" id="house_help_id" name="house_help_id">
                     </div>
 
-                    <div class="form-group hidden ">
-                        <input type="text" id="user_id" value="<?php echo $_SESSION["ID"] ?>">
+                    <div class="form-group  ">
+                        <input type="text" id="user_id" name="user_id" value="<?php echo $_SESSION["ID"] ?>">
                     </div>
                     
                     <div class="form-group">
@@ -105,7 +105,7 @@ if(!empty($_SESSION["ID"])){
                             $services_sql = "SELECT service, price FROM services";
                             $services_result = mysqli_query($conn, $services_sql);
                             while($services_row = mysqli_fetch_assoc($services_result)) {
-                                echo "<option value='" . $services_row["price"]." = " .$services_row["price"]. "'>" . $services_row["service"] ."->".$services_row["price"]. "</option>";
+                                echo "<option value='" . $services_row["service"] ."->".$services_row["price"]." = " .$services_row["price"]. "'>" . $services_row["service"] ."->".$services_row["price"]. "</option>";
                             }
                             ?>
                         </select>
@@ -166,8 +166,9 @@ if($_SERVER["REQUEST_METHOD"] == 'POST'){
         $end_time = $_POST["end_time"];
 
         echo $end_time;
+
         
-        $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id', '$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
+        $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
         mysqli_query($conn, $query);
     
     }

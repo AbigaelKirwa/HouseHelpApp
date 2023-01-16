@@ -38,24 +38,9 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 
         $h_id = $row['house_help_id']; // example ID
-        $sql2 = "SELECT name FROM house_helps WHERE id = $h_id";
+        $sql2 = "SELECT name,status FROM house_helps WHERE id = $h_id";
         $result2 = $conn->query($sql2);
         $row2 = $result2->fetch_assoc();
-
-
-        // $output = '<div class="p-4 bg-white rounded-lg shadow-md">';
-        // $output .= '<h2 class="text-lg font-medium">Order ID: '.$row["order_ID"].'</h2>';
-        // $output .= '<p class="text-gray-600">House Help Name: '.$row2["name"].'</p>';
-        // $output .= '<p class="text-gray-600">Service Price: '.$row["service_price"].'</p>';
-        // $output .= '<p class="text-gray-600">Start Time: '.$row["start_time"].'</p>';
-        // $output .= '<p class="text-gray-600">End Time: '.$row["end_time"].'</p>';
-        // $output .= '<p class="text-gray-600">County: '.$row["county"].'</p>';
-        // $output .= '<p class="text-gray-600">Location: '.$row["location"].'</p>';
-        // $output .= '<p class="text-gray-600">House Number: '.$row["house_number"].'</p>';
-        // $output .= '<p class="text-gray-600">Date: '.$row["date"].'</p>';
-        // $output .= '</div>';
-        //echo $output;
-
         ?>
 
 <div class="p-4 bg-white rounded-lg shadow-md mx-auto text-center" style="width: 80%; border: 1px solid #ccc;">
@@ -68,8 +53,30 @@ if ($result->num_rows > 0) {
     <p class="text-gray-600">Location: <?php echo $row["location"]; ?></p>
     <p class="text-gray-600">House Number: <?php echo $row["house_number"]; ?></p>
     <p class="text-gray-600">Date: <?php echo $row["date"]; ?></p>
-    <button class="btn btn-danger btn-lg" onclick="endService(<?php echo $row["order_ID"]; ?>)">End Service</button>
+
+    <form method="post" id="form">
+    <button class="btn btn-danger" style="background-color: green; border-radius: 10px; padding: 7px" name="end_service" value="<?php echo $row["order_ID"]; ?>" id="end_service_btn">End Service</button>
+</form>
+
+<?php
+if(isset($_POST['end_service'])){
+    $order_id = $_POST['end_service'];
+    $sql = "UPDATE house_helps SET status = 'Available' WHERE ID = $h_id";
+    if(mysqli_query($conn, $sql)){
+        echo "<script>
+        document.getElementById('end_service_btn').disabled = true;
+        document.getElementById('end_service_btn').style.backgroundColor = 'gray';
+    </script>";
+    } else {
+        echo "Error updating status: " . mysqli_error($conn);
+    }
+}
+?>
+
+
 </div>
+
+
 
 <?php
 

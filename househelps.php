@@ -29,11 +29,13 @@ if(!empty($_SESSION["ID"])){
         $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
         mysqli_query($conn, $query);
 
-        $househelp_status = "UPDATE house_helps SET status = 'Engaged' WHERE id =  $house_help_id";
+
+        $househelp_status = "UPDATE house_helps SET status = 'Engaged' WHERE ID =  $house_help_id";
         mysqli_query($conn, $househelp_status);
 
-        header("Location: pay_mpesa.php");
+ 
         echo '<script>alert("Succeful registration")</script>"';
+        header("Location: pay_mpesa.php");
     
     }
 

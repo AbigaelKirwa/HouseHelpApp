@@ -14,11 +14,11 @@
         <?php
             include("config.php");
             if (isset($_GET['id'])){
-                $fare_id = $_GET['id'];
+                $service_price = $_GET['id'];
             }
             ?>
             <!-- here I am redirecting to payment.php-->
-            <button type="button" style = "margin-top:-25px"class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg" id="editbtn"><a name="payment" href="payment.php?id=<?php echo $fare_id ?>">Pay with M-Pesa</a></button>
+            <button type="button" style = "margin-top:-25px"class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg" id="editbtn"><a name="payment" href="payment.php?id=<?php echo $service_price ?>">Pay with M-Pesa</a></button>
             <?php    
         ?>
     </div>

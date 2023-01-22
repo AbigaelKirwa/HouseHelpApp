@@ -3,9 +3,7 @@
 include "../../config.php";
 
 if (isset($_GET['id'])){
-    $fare_id = $_GET['id'];
-    $sql = " SELECT * FROM `fare` WHERE `fare_id`= $fare_id";
-    $result = $conn -> query($sql);
+    $int_service_price = $_GET['id'];
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +97,7 @@ if (isset($_GET['id'])){
             
                 <div class="col-12">
                   <label for="inputAddress" class="form-label">Amount</label>
-                  <input type="text" class="form-control" name="amount" placeholder="Enter Amount" id="amount" value="<?php echo $fare_id ?>" readonly>
+                  <input type="text" class="form-control" name="amount" placeholder="Enter Amount" id="amount" value="<?php echo $int_service_price ?>" readonly>
                 </div>
                 <div class="col-12">
                   <label for="inputAddress2" class="form-label" >Phone Number</label>

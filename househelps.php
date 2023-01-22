@@ -35,7 +35,8 @@ if(!empty($_SESSION["ID"])){
 
  
         echo '<script>alert("Succeful registration")</script>"';
-        header("Location: pay_mpesa.php");
+        header("Location: pay_mpesa.php?id=".$_POST['service_price'].";");
+        
     
     }
 

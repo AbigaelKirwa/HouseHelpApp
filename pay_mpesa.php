@@ -11,12 +11,16 @@
     <div class="grid h-screen place-items-center mt-5">
         <img src="images/tick.png">
         <p class="text-2xl"><span class="font-bold text-4xl">Success!</span> You have successfully booked a househelp!</p>
-        <button onclick="promptMpesaPayment()" class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg">Pay with M-PESA</button>
-        <script>
-            function promptMpesaPayment() {
-                alert("Please enter your M-PESA details to proceed with payment.");
+        <?php
+            include("config.php");
+            if (isset($_GET['id'])){
+                $fare_id = $_GET['id'];
             }
-        </script>
+            ?>
+            <!-- here I am redirecting to payment.php-->
+            <button type="button" style = "margin-top:-25px"class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg" id="editbtn"><a name="payment" href="payment.php?id=<?php echo $fare_id ?>">Pay with M-Pesa</a></button>
+            <?php    
+        ?>
     </div>
 </body>
 </html>

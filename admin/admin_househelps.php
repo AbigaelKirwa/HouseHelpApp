@@ -112,6 +112,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
 
                 </div>  
             </div>
+           
             <!-- This section contains table entries -->
             <table width="100%">
                 <tr class="flex flex-row space-x-80 px-10 bg-sky-700" width="100%">

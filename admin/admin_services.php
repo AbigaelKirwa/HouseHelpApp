@@ -144,7 +144,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                                
             </div>
                  <!-- Trigger the modal with a button -->
-            <button type="button" style="background-color:Green;" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                <button type="button" style="background-color:Green;" class="btn btn-info" data-toggle="modal" data-target="#myModal">
                 Add Service
                 </button>
             <!-- This section contains table entries -->

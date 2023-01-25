@@ -36,9 +36,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
             $query = "INSERT INTO services (`service`, `description`, `img_icon`, `price`) VALUES ('$service', '$description', '$image', '$price')";
             $result = mysqli_query($conn, $query);
     
-            if ($result) {
-                echo "Successfully inserted data";
-            } else {
+            if (!$result) {
                 echo "Insertion failed";
             }
         }

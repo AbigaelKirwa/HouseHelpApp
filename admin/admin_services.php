@@ -19,6 +19,30 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
      //count number of orders
      $result= mysqli_query($conn, "SELECT * FROM orders");
      $orders=mysqli_num_rows($result);
+
+
+     //adding a service
+     if (isset($_POST['submit'])) {
+        $service = $_POST['service'];
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+    
+        $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+        $image_size = getimagesize($_FILES['image']['tmp_name']);
+    
+        if ($image_size==FALSE) {
+            echo "That's not an image!";
+        } else {
+            $query = "INSERT INTO services (`service`, `description`, `img_icon`, `price`) VALUES ('$service', '$description', '$image', '$price')";
+            $result = mysqli_query($conn, $query);
+    
+            if ($result) {
+                echo "Successfully inserted data";
+            } else {
+                echo "Insertion failed";
+            }
+        }
+    }
  
 
 
@@ -37,6 +61,14 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+      <!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <title>Admin</title>
 </head>
@@ -60,7 +92,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                     </div>
                     <div class="flex flex-row mt-6">
                         <img class="w-8" src="../images/profile2.png" alt="profile">
-                        <li class="text-xl ml-5"><a href="http://localhost/HouseHelpApp/admin/admin_services.php">Services</a></li>
+                        <li class="text-xl ml-5"><a href="">Services</a></li>
                     </div>
                     <div class="flex flex-row mt-6">
                         <img class="w-8" src="../images/house-help.png" alt="househelps">
@@ -72,7 +104,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                     </div>
                     <div class="flex flex-row mt-6">
                         <img class="w-8" src="../images/logout.png" alt="logout">
-                        <li class="text-xl ml-5"><a href="#">Sign out</a></li>
+                        <li class="text-xl ml-5"><a href="">Sign out</a></li>
                     </div>
                 </ul>
             </div>
@@ -110,36 +142,34 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                         <p class="text-xl text-sky-700 ml-2">Orders</p>
                     </div>
 
-                </div>  
+                </div> 
+                               
             </div>
+                 <!-- Trigger the modal with a button -->
+            <button type="button" style="background-color:Green;" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                Add Service
+                </button>
             <!-- This section contains table entries -->
             <table width="100%">
                 <tr class="flex flex-row space-x-80 px-10 bg-sky-700" width="100%">
-                    <th class="text-2xl text-white">Name</th>
-                    <th class="text-2xl text-white">Status</th>
-                    <th class="text-2xl text-white">Action</th>
+                    <th class="text-2xl text-white">Service</th>
+                    <th class="text-2xl text-white">Price</th>
                 </tr>
                 <?php
 
-                $query = "SELECT * FROM users where role=2";
+                $query = "SELECT * FROM services";
                 $result= mysqli_query($conn, $query);
                 while ($row = mysqli_fetch_array($result)){
                     ?>
                 <tr class="flex flex-row space-x-52  px-5 py-5 border-solid border-b-2 border-gray-300" width="100%">
-                    <td class="flex flex-row space-x-5">
-                        <img class="w-12" src="../images/girl2.png" alt="">
-                        <div>
-                            <p class="text-xl"><?php echo $row["username"] ?></p>
-                            <p class="text-sm text-gray-600"><?php echo $row["email"] ?></p>
-                        </div>
+                   
+                    <td>
+                       <p><?php echo $row["service"] ?></p>
                     </td>
                     <td>
-                        <button class="text-xl">Active</button>
+                       <p><?php echo $row["price"] ?></p>
                     </td>
-                    <td class="flex flex-row space-x-10 pl-24">
-                        <a href=""><img class="w-7" src="../images/edit.png" alt="edit"></a>
-                        <a href=""><img class="w-7" src="../images/del.png" alt="delete"></a>
-                    </td>
+                
                 </tr>
                 <?php
                  }
@@ -147,6 +177,45 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
             </table>
         </section>
     </div>
+
+    <!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Service</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="service">Service</label>
+            <input type="text" class="form-control" id="service" name="service">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input name="image" type="file" class="form-control" id="image">
+          </div>
+          <div class="form-group">
+            <label for="price">Price</label>
+            <input name="price" type="number" class="form-control" id="price">
+          </div>
+
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input class="btn btn-success" type="submit" name="submit" value="Submit">
+            </div>
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
     
 </body>
 </html>

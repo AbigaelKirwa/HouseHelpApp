@@ -121,7 +121,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                 </tr>
                 <?php
 
-                $query = "SELECT * FROM users where role=2";
+                $query = "SELECT * FROM house_helps";
                 $result= mysqli_query($conn, $query);
                 while ($row = mysqli_fetch_array($result)){
                     ?>
@@ -129,12 +129,12 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                     <td class="flex flex-row space-x-5">
                         <img class="w-12" src="../images/girl2.png" alt="">
                         <div>
-                            <p class="text-xl"><?php echo $row["username"] ?></p>
+                            <p class="text-xl"><?php echo $row["name"] ?></p>
                             <p class="text-sm text-gray-600"><?php echo $row["email"] ?></p>
                         </div>
                     </td>
                     <td>
-                        <button class="text-xl">Active</button>
+                        <button class="text-xl"><?php echo $row["status"] ?></button>
                     </td>
                     <td class="flex flex-row space-x-10 pl-24">
                         <a href=""><img class="w-7" src="../images/edit.png" alt="edit"></a>

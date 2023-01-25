@@ -20,14 +20,23 @@
             echo '<script>alert("Incorrect username or password")</script>"';
 
         }else{
-
             if($password == $row["password"]){
-                $_SESSION["login"] = true;
-                $_SESSION["ID"] = $row["ID"];
-                $_SESSION["username"] = $row["username"];
-
-                header("Location: home.php");
-                echo '<script>alert("Succeful registration")</script>"';
+                if($row["role"] == 1){
+                    $_SESSION["login"] = true;
+                    $_SESSION["ID"] = $row["ID"];
+                    $_SESSION["role"] = 1;
+                    $_SESSION["username"] = $row["username"];
+                    echo '<script>alert("Logged In Succesfully")</script>"';
+                    header("Location: admin/admin.php");
+                    
+                }else{
+                    $_SESSION["login"] = true;
+                    $_SESSION["ID"] = $row["ID"];
+                    $_SESSION["username"] = $row["username"];
+                    echo '<script>alert("Logged In Succesfully")</script>"';
+                    header("Location: home.php");
+                }
+                
             }else{
 
             echo '<script>alert("Incorrect username or passwordy")</script>"';

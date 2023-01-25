@@ -19,6 +19,26 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
      //count number of orders
      $result= mysqli_query($conn, "SELECT * FROM orders");
      $orders=mysqli_num_rows($result);
+
+     if (isset($_POST['submit'])) {
+        // Get the form data
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $phone_number = mysqli_real_escape_string($conn, $_POST['p_number']);
+    
+         // Handle the image
+    $image = $_FILES['image']['name'];
+    $image_temp = $_FILES['image']['tmp_name'];
+    move_uploaded_file($image_temp, "path/to/uploaded/images/$image");
+
+    // Insert the data into the database
+    $query = "INSERT INTO house_helps (name, email, description, phone_number, profile_pic) VALUES ('$name', '$email', '$description', '$phone_number', '$image')";
+    mysqli_query($conn, $query);
+
+    // Redirect to a thank you page
+    header("Location: thank_you.php");
+}
  
 
 
@@ -120,9 +140,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
 
                 </div>  
             </div>
-            <button type="button" style="background-color:Green;" class="btn btn-info" data-toggle="modal" data-target="#myModal">
-                Add HouseHelp
-                </button>
+            
             <!-- This section contains table entries -->
             <table width="100%">
                 <tr class="flex flex-row space-x-80 px-10 bg-sky-700" width="100%">
@@ -158,48 +176,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
             </table>
         </section>
         
-            <!-- Modal HTML -->
-<div id="myModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add HouseHelp</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name">
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input name="email" type="email" class="form-control" id="email">
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="price">Phone Number</label>
-            <input name="p_number" type="tel" class="form-control" id="p_number">
-          </div>
-          <div class="form-group">
-            <label for="image">Image</label>
-            <input name="image" type="file" class="form-control" id="image">
-          </div>
-         
 
-            <div class="modal-footer">
-                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                <input class="btn btn-success" type="submit" name="submit" value="Submit">
-            </div>
-
-        </form>
-      </div>
-      
-    </div>
-  </div>
                 
 
     </div>

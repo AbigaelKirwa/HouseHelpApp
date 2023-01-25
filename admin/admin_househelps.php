@@ -19,6 +19,33 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
      //count number of orders
      $result= mysqli_query($conn, "SELECT * FROM orders");
      $orders=mysqli_num_rows($result);
+
+        //adding a househelp
+        if (isset($_POST['submit'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $description = $_POST['description'];
+            $phone_number = $_POST['p_number'];
+    
+            $image = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+            $image_size = getimagesize($_FILES['image']['tmp_name']);
+        
+            if ($image_size==FALSE) {
+                echo "That's not an image!";
+            } else {
+                $query = "INSERT INTO house_helps (`name`, `email`, `description`, `phone_number`, `profile_pic`) VALUES ('$name', '$email', '$description', '$phone_number', '$image')";
+                $result = mysqli_query($conn, $query);
+
+                if($result){
+                    echo '<script>alert("Added succesfully")</script>"';
+                }else{
+                    echo '<script>alert("An error occured")</script>"';
+                }
+        
+                
+            }
+        }
+     
  
 
 
@@ -37,6 +64,14 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+      <!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
     <title>Admin</title>
 </head>
@@ -112,6 +147,9 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
 
                 </div>  
             </div>
+            <button type="button" style="background-color:Green;" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                Add HouseHelp
+                </button>
            
             <!-- This section contains table entries -->
             <table width="100%">
@@ -147,6 +185,48 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                 ?>
             </table>
         </section>
+                    <!-- Modal HTML -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add HouseHelp</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input name="email" type="email" class="form-control" id="email">
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="price">Phone Number</label>
+            <input name="p_number" type="tel" class="form-control" id="p_number">
+          </div>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input name="image" type="file" class="form-control" id="image">
+          </div>
+         
+
+            <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input class="btn btn-success" type="submit" name="submit" value="Submit">
+            </div>
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
     </div>
     
 </body>

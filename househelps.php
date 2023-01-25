@@ -67,44 +67,149 @@ if(!empty($_SESSION["ID"])){
 <!-- Bootstrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <title>HouseHelps</title>
-</head>
-<body>
-    <div class="px-10 py-5">
+<title>HouseHelps</title>
+<style>
+    label .menu {
+    position: absolute;
+    right: -100px;
+    top: -80px;
+    z-index: 100;
+    width: 200px;
+    height: 200px;
+    border-radius: 50% 50% 50% 50%;
+    -webkit-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    box-shadow: 0 0 0 0 #FFF, 0 0 0 0 #FFF;
+    cursor: pointer;
+    
+    }
         
+    label .hamburger {
+        position: absolute;
+        top: 135px;
+        left: 50px;
+        width: 30px;
+        height: 2px;
+        background: #000;
+        display: block;
+        -webkit-transform-origin: center;
+        transform-origin: center;
+        -webkit-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+    }
+        
+    label .hamburger:after, label .hamburger:before {
+        -webkit-transition: .5s ease-in-out;
+        transition: .5s ease-in-out;
+        content: "";
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #000;
+    }
+        
+    label .hamburger:before { top: -10px; }
+    
+    label .hamburger:after { bottom: -10px; }
+    
+    label input { display: none; }
+    
+    label input:checked + .menu {
+        box-shadow: 0 0 0 100vw #FFF, 0 0 0 100vh #FFF;
+        border-radius: 0;
+        
+    }
+    
+    label input:checked + .menu .hamburger {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        
+    }
+    
+    label input:checked + .menu .hamburger:after {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        bottom: 0;
+        
+    }
+    
+    label input:checked + .menu .hamburger:before {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    top: 0;
+        
+    }
+        
+    label input:checked + .menu + ul { opacity: 1; }
+    
+    label ul {
+    z-index: 200;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    -webkit-transition: .25s 0s ease-in-out;
+    transition: .25s 0s ease-in-out;
+    list-style-type: none;
+    }
+    
+    label a {
+    margin-bottom: 1em;
+    display: block;
+    color: #000;
+    text-decoration: none;
+    }
+</style>
+</head>
+<body class="px-5 py-3" width="100%">
+    <div class=" flex flex-row">
+        <h1 class="font-bold text-2xl">Welcome <?php echo $row["username"] ?></h1> 
+        <nav>
+            <!--Humberger Menu-->
+        <label>
+            <input type="checkbox">
+            <span class="menu"> <span class="hamburger"></span> </span>
+            <ul>
+            <li> <a class="text-xl" href="home.php">Home</a> </li>
+            <li> <a class="text-xl" href="#">View Househelps</a></li>
+            <li> <a class="text-xl" href="order_history.php">View Orders</a></li>
+            <li> <a class="text-xl" href="signout.php">Log out</a> </li>
+            </ul>
+        </label>
+        </nav>      
     </div>
-    <div class="text-center">
+
+    <div class="text-center mt-5">
         <h1 class="font-bold text-4xl text-sky-600">Available Househelps</h1>
     </div>
-    <table class="table">
-    <thead>
-        <tr>
-            <th >ID</th>
-            <th>Profile Picture</th>            
-            <th>Name</th>
-            <th>Email</th>
-            <th>Description</th>
-            <th>Phone Number</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php 
-        $h_result= mysqli_query($conn, "SELECT * FROM house_helps where status = 'Available'");
-        while($row = mysqli_fetch_assoc($h_result)) {
-            echo "<tr class='border-b border-gray-200'>";
-            echo "<td class='py-4 px-6'> " . $row["ID"] . "</td>";
-            echo "<td class='py-4 px-6'><img src='data:image/jpeg;base64,".base64_encode($row["profile_pic"])."' width='50' height='50' class='rounded-full'></td>";
-            echo "<td class='py-4 px-6'>" . $row["name"] . "</td>";
-            echo "<td class='py-4 px-6'>" . $row["email"] . "</td>";
-            echo "<td class='py-4 px-6'>" . $row["description"] . "</td>";
-            echo "<td class='py-4 px-6'>" . $row["phone_number"] . "</td>";
-            echo "<td class='py-4 px-6'><button class='btn btn-primary order-btn' data-ID='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></td>";
-            echo "</tr>";
-        }
-    ?>
-</tbody>
-</table>
+ 
+    <div id="container"  width="100%" class="mt-5">
+        <div class="grid grid-cols-3 gap-3">
+            <?php 
+                $h_result= mysqli_query($conn, "SELECT * FROM house_helps where status = 'Available'");
+                while($row = mysqli_fetch_assoc($h_result)) {
+                        // class="grid grid-cols-3 gap-20 px-10 py-10"
+                        //echo "<td class='py-4 px-6'> " . $row["ID"] . "</td>"; 
+                        ?>
+                        <div class="w-96 px-3 py-5 text-center">
+                            <?php
+                        echo "<div class= 'flex items-center justify-center'><img class='w-28 rounded-full' src='data:image/jpeg;base64,".base64_encode($row["profile_pic"])."'></div>", "</br>";
+                        echo "<p class='font-bold text-xl'> " . $row["name"] . "</p>", "</br>"; 
+                        echo "<p class= 'text-lg'>" . $row["email"] . "</p>" , "</br>";
+                        echo "<p class= 'text-lg'>" . $row["description"] . "</p>", "</br>";
+                        echo "<p class= 'text-lg'>0" . $row["phone_number"] . "</p>", "</br>";
+                        echo "<div class='py-4 px-6'><button class='btn btn-primary order-btn' data-ID='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></div>";
+                        ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+        </div>
+    </div>
+
 
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -178,6 +283,8 @@ if(!empty($_SESSION["ID"])){
 
         
                 </form>
+            </div>
+        </div>
 
 
     </div>

@@ -39,7 +39,7 @@
                 
             }else{
 
-            echo '<script>alert("Incorrect username or passwordy")</script>"';
+            echo '<script>alert("Incorrect username or password")</script>"';
             }
             
         }
@@ -61,7 +61,7 @@
             <div>
                 <h1 class="font-bold text-6xl leading-relaxed ml-14 mt-5 text-sky-700">User Account</h1>
                 <form class="mt-5" method="post">
-                    <input class="rounded-md pl-10 pr-56 py-2 mt-4 text-gray-500" style="background-color: rgba(97, 97, 97, 0.08);" name="email" placeholder="Username"/><br>
+                    <input class="rounded-md pl-10 pr-56 py-2 mt-4 text-gray-500" style="background-color: rgba(97, 97, 97, 0.08);" name="email" placeholder="email"/><br>
                     <input class="rounded-md pl-10 pr-56 py-2 mt-4 text-gray-500" style="background-color: rgba(97, 97, 97, 0.08);" type="password" name="password" placeholder="Password"/><br>
                     <button type="submit" class="rounded-full px-28 py-4 mt-5 text-xl font-bold text-black ml-20 bg-sky-200">LOG IN</button>
                 </form>

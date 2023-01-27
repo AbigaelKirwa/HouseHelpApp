@@ -37,7 +37,7 @@
         transition: .5s ease-in-out;
         box-shadow: 0 0 0 0 #FFF, 0 0 0 0 #FFF;
         cursor: pointer;
-        
+        background-color: transparent;
         }
             
         label .hamburger {

@@ -68,10 +68,11 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
     <link rel="stylesheet" href="../css/style.css">
     <title>Admin</title>
 </head>
-<body>
-    <div class="container flex flex-row">
+
+<body >
+    <div class="flex flex-row" id="container">
     <!-- This section is the left most part, it contains different pages such as  home, profile househelps -->
-        <section class="w-1/4 border-solid border-r-4 border-sky-700" style="height: 100vh;">
+        <section class="w-1/4 border-solid border-r-4 border-sky-700 h-">
             <div id="left-panel" class="pl-10 py-5">
                 <!-- this section contains the admin name and picture -->
                 <p class="font-bold text-3xl"><a href="#">Donda</a></p>
@@ -81,7 +82,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                     <p class="text-sky-700 text-xl"><b>Admin</b></p>
                 </div>
                 <!-- this section contains the links to different pages -->
-                <ul class="mt-10">
+                <ul class="mt-10 space-y-6">
                     <div class="flex flex-row mt-6">
                         <img class="w-8" src="../images/home.png" alt="home">
                         <li class="text-xl ml-5"><a href="http://localhost/HouseHelpApp/admin/admin.php">Home</a></li>
@@ -107,35 +108,35 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
         </section>
         <!-- This is the main section containing the counters and CRUD displays -->
         <section class="w-3/4 h-1/3">
-            <div id="counter" class="px-5 py-10  flex flex-row space-x-5 bg-sky-300">
+            <div id="counter" class="px-3 py-10  flex flex-row space-x-3 bg-sky-300">
                 <!-- this section displays the counters -->
-                <div class=" w-72 flex flex-row bg-white px-10 py-7 rounded-3xl">
-                    <div>
-                        <img class="w-20" src="../images/users.png" alt="">
+                <div class=" w-80 grid grid-cols-2 gap-2 bg-white px-10 py-7 rounded-3xl">
+                    <div class="mt-3">
+                        <img width="70px" src="../images/users.png" alt="">
                     </div>
-                    <div class="px-3 ml-4 mt-2">
-                        <p class="text-3xl ml-4"><b><?php echo $total_users ?></b></p>
-                        <p class="text-xl text-sky-700">Total Users</p>
-                    </div>
-
-                </div>
-                <div class=" w-72 flex flex-row bg-white px-10 py-7 rounded-3xl">
-                    <div>
-                        <img class="w-20" src="../images/househelp.png" alt="">
-                    </div>
-                    <div class=" ml-4 mt-2">
-                        <p class="text-3xl ml-4"><b><?php echo $house_helps ?></b></p>
-                        <p class="text-xl text-sky-700">House Helps</p>
+                    <div class="mt-3 text-center">
+                        <p class="text-3xl"><b><?php echo $total_users ?></b></p>
+                        <p class="text-xl text-sky-700 truncate">Total Users</p>
                     </div>
 
                 </div>
-                <div class=" w-72 flex flex-row bg-white px-10 py-7 rounded-3xl">
-                    <div>
-                        <img class="w-20" src="../images/checklist.png" alt="">
+                <div class=" w-80 grid grid-cols-2 gap-2 bg-white px-10 py-7 rounded-3xl">
+                    <div class="mt-3">
+                        <img width="70px" src="../images/househelp.png" alt="">
                     </div>
-                    <div class="px-3 ml-4 mt-2">
-                        <p class="text-3xl ml-4"><b><?php echo $orders ?></b></p>
-                        <p class="text-xl text-sky-700 ml-2">Orders</p>
+                    <div class="mt-3 text-center">
+                        <p class="text-3xl"><b><?php echo $house_helps ?></b></p>
+                        <p class="text-xl text-sky-700 truncate">House Helps</p>
+                    </div>
+
+                </div>
+                <div class=" w-72 grid grid-cols-2 gap-2 bg-white px-10 py-7 rounded-3xl">
+                    <div>
+                        <img width="70px" src="../images/checklist.png" alt="">
+                    </div>
+                    <div class="mt-3 text-center">
+                        <p class="text-3xl"><b><?php echo $orders ?></b></p>
+                        <p class="text-xl text-sky-700 truncate">Orders</p>
                     </div>
 
                 </div>  
@@ -143,7 +144,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
             
             <!-- This section contains table entries -->
             <table width="100%">
-                <tr class="flex flex-row space-x-80 px-10 bg-sky-700" width="100%">
+                <tr class="grid grid-cols-3 gap-64 px-10 bg-sky-700" width="100%">
                     <th class="text-2xl text-white">Name</th>
                     <th class="text-2xl text-white">Status</th>
                     <th class="text-2xl text-white">Action</th>
@@ -154,7 +155,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                 $result= mysqli_query($conn, $query);
                 while ($row = mysqli_fetch_array($result)){
                     ?>
-                <tr class="flex flex-row space-x-52  px-5 py-5 border-solid border-b-2 border-gray-300" width="100%">
+                <tr class="grid grid-cols-3 gap-12  px-5 py-5 border-solid border-b-2 border-gray-300" width="100%">
                     <td class="flex flex-row space-x-5">
                         <img class="w-12" src="../images/girl2.png" alt="">
                         <div>
@@ -162,10 +163,10 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                             <p class="text-sm text-gray-600"><?php echo $row["email"] ?></p>
                         </div>
                     </td>
-                    <td>
+                    <td class="px-20">
                         <button class="text-xl">Active</button>
                     </td>
-                    <td class="flex flex-row space-x-10 pl-24">
+                    <td class="flex flex-row space-x-10 pl-32">
                         <a href=""><img class="w-7" src="../images/edit.png" alt="edit"></a>
                         <a href=""><img class="w-7" src="../images/del.png" alt="delete"></a>
                     </td>
@@ -174,10 +175,7 @@ if(!empty($_SESSION["ID"]) && $_SESSION["role"] == 1){
                  }
                 ?>
             </table>
-        </section>
-        
-
-                
+        </section>          
 
     </div>
     

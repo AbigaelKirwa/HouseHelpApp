@@ -11,7 +11,7 @@
 <body class="bg-sky-300">
     <div class="grid h-screen place-items-center mt-5">
         <img src="images/tick.png">
-        <p class="text-2xl"><span class="font-bold text-4xl">Success!</span> You have successfully booked a househelp!</p>
+        <p class="text-2xl"><span class="font-bold text-4xl">Success!</span> You have successfully booked and paid for a househelp!</p>
         <button class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg">View Booking</button>
     <div>
 

@@ -11,6 +11,8 @@ if(!empty($_SESSION["ID"])){
 
 
     if($_SERVER["REQUEST_METHOD"] == 'POST'){
+
+
                 
 
         $house_help_id = $_POST["house_help_id"];
@@ -23,18 +25,18 @@ if(!empty($_SESSION["ID"])){
         $start_time = $_POST["start_time"];
         $end_time = $_POST["end_time"];
 
-        echo $end_time;
-
         
         $query = "INSERT INTO orders (`house_help_id`, `user_id`, `service_price`, `county`, `location`, `house_number`, `date`, `start_time`, `end_time`) VALUES ('$house_help_id', '$user_id','$service_price', '$county', '$location', '$house_number', '$date', '$start_time', '$end_time')";
         mysqli_query($conn, $query);
+
+       
 
 
         $househelp_status = "UPDATE house_helps SET status = 'Engaged' WHERE ID =  $house_help_id";
         mysqli_query($conn, $househelp_status);
 
  
-        echo '<script>alert("Succeful registration")</script>"';
+        echo '<script>alert("Ordered succesfully")</script>"';
         header("Location: pay_mpesa.php?id=".$_POST['service_price'].";");
         
     
@@ -201,7 +203,7 @@ if(!empty($_SESSION["ID"])){
                         echo "<p class= 'text-lg'>" . $row["email"] . "</p>" , "</br>";
                         echo "<p class= 'text-lg'>" . $row["description"] . "</p>", "</br>";
                         echo "<p class= 'text-lg'>0" . $row["phone_number"] . "</p>", "</br>";
-                        echo "<div class='py-4 px-6'><button class='btn btn-primary order-btn' data-ID='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></div>";
+                        echo "<div class='py-4 px-6'><button class='btn btn-primary order-btn' data-hid='" . $row["ID"] . "' data-name='" . $row["name"] . "' data-email='" . $row["email"] . "' data-toggle='modal' data-target='#orderModal'>Order Now</button></div>";
                         ?>
                         </div>
                         <?php
@@ -223,6 +225,7 @@ if(!empty($_SESSION["ID"])){
             <div class="modal-body">
                 <form action="" id="orderForm" method="POST">
                     <div class="form-group  hidden">
+                    <label for="name">ID</label>
                         <input type="text" id="house_help_id" name="house_help_id" readonly>
                     </div>
 
@@ -295,12 +298,15 @@ if(!empty($_SESSION["ID"])){
 $(document).on("click", ".order-btn", function() {
     var name = $(this).data("name");
     $("#name").val(name);
+
+    var ID = $(this).data("hid");
+    $("#house_help_id").val(ID);
 });
 
 $(document).ready(function(){
   $('.order-btn').on('click', function(){
-    var id = $(this).closest('tr').find('td:first').text();
-    $('#house_help_id').val(id);
+    // var id = $(this).closest('tr').find('td:first').text();
+    // $('#house_help_id').val(id);
     $('#myModal').modal('show');
   });
 });

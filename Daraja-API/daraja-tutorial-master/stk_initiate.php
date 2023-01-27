@@ -89,8 +89,8 @@ if(isset($_POST['submit'])){
   //print_r($curl_response);
 
   //echo $curl_response;
-  echo "Your Payment has been processed"; echo "<br>"; echo "You have paid KSH :" . $Amount; echo "<br>"; 
-  echo "Using the number :" .$PartyA; echo "<br>"; echo "At " .$Timestamp;
+  //echo "Your Payment has been processed"; echo "<br>"; echo "You have paid KSH :" . $Amount; echo "<br>"; 
+  //echo "Using the number :" .$PartyA; echo "<br>"; echo "At " .$Timestamp;
 
   $amount = $_POST['amount'];
   $username = $_SESSION["username"];
@@ -101,7 +101,7 @@ if(isset($_POST['submit'])){
   $sql= "INSERT INTO mpesa (user_id, username, amount, phone_no) VALUES('$user_id','$username','$amount','$PartyA')";
   $result = $conn -> query($sql);
   if($result == TRUE){
-  echo "\n Record inserted successfully";
+ // echo "\n Record inserted successfully";
   // header("refresh:0; url= admin_bus.php");
   }
   else
@@ -110,3 +110,31 @@ if(isset($_POST['submit'])){
   }
 };
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Success</title>
+</head>
+<body class="bg-sky-300">
+    <div class="grid h-screen place-items-center mt-5">
+        <!-- <img src="../../images/tick.png"> -->
+        <p class="text-2xl"><span class="font-bold text-4xl">Success!</span> You have successfully booked and paid for a househelp!</p>
+        <div class="bg-white rounded-3xl px-20 py-10">
+          <p class="text-xl leading-loose">
+            <?php   
+              echo "Your Payment has been processed"; 
+              echo "<br>"; 
+              echo "You have paid KSH :" . $Amount; echo "<br>"; 
+              echo "Using the number :" .$PartyA; echo "<br>"; echo "At " .$Timestamp; ?>
+          </p>
+        </div>
+        <button class="bg-black hover:bg-sky-700 text-white font-bold py-4 px-6 rounded-full text-lg"><a href="../../order_history.php">View Booking</a></button>
+    <div>
+
+</body>
+</html>
